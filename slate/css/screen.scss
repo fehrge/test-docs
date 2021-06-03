@@ -287,18 +287,24 @@ html, body {
     display: inline;
     color: $lang-select-text;
     text-decoration: none;
-    padding: 0 10px;
+    padding: 5px 15px;
     line-height: 30px;
     outline: 0;
+    border-top: 4px solid transparent;
 
     &:active, &:focus {
       background-color: $lang-select-pressed-bg;
       color: $lang-select-pressed-text;
     }
 
+    &:hover {
+      border-color: $lang-select-border;
+    }
+
     &.active {
       background-color: $lang-select-active-bg;
       color: $lang-select-active-text;
+      border-color: $lang-select-border;
     }
   }
 
@@ -468,14 +474,21 @@ html, body {
     margin-top: 1.5em;
     margin-bottom: 1.5em;
     background: $aside-notice-bg;
+    border-top: 1px solid $aside-notice-border;
+    border-bottom: 1px solid $aside-notice-border;
+    color: $aside-notice-text;
     line-height: 1.6;
 
     &.warning {
+      color: $aside-warning-text;
       background-color: $aside-warning-bg;
+      border-color: $aside-warning-border;
     }
 
     &.success {
+      color: $aside-success-text;
       background-color: $aside-success-bg;
+      border-color: $aside-success-border;
     }
   }
 
@@ -631,4 +644,3 @@ html, body {
 .copy-clipboard:hover {
   opacity: 0.8;
 }
-
