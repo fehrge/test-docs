@@ -1,0 +1,13 @@
+{
+  "private": true,
+  "name": "spinupwp-rest-api-docs",
+  "main": "index.js",
+  "scripts": {
+    "build": "npx reslate build",
+    "debug": "npx reslate debug",
+    "serve": "npx reslate serve"
+  },
+  "devDependencies": {
+    "reslate": "^3.0.0-4"
+  }
+}
