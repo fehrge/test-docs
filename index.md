@@ -1,240 +1,281 @@
 ---
-title: API Reference
-
-language_tabs: # must be one of https://prismjs.com/#supported-languages
-  - shell
-  - ruby
-  - python
-  - javascript
-
-toc_footers:
-  - <a href='#'>Sign Up for a Developer Key</a>
-  - <a href='https://github.com/slatedocs/slate'>Documentation Powered by Slate</a>
-
-includes:
-  - errors.md
-
+title: SpinupWP v1.0.0
+language_tabs:
+  - shell: cURL
+  - php: PHP
+toc_footers: []
+includes: []
 search: true
-code_clipboard: true
+highlight_theme: darkula
+headingLevel: 2
+
 ---
 
-# Introduction
+<!-- Generator: Widdershins v4.0.1 -->
 
-Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.
+<h1 id="spinupwp">SpinupWP v1.0.0</h1>
 
-We have language bindings in Shell, Ruby, Python, and JavaScript! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
+> Scroll down for code samples, example requests and responses. Select a language for code samples from the tabs above or the mobile navigation menu.
 
-This example API documentation page was created with [Slate](https://github.com/slatedocs/slate). Feel free to edit it and use it as a base for your own API's documentation.
+SpinupWP REST API documentation.
+
+Base URLs:
+
+* <a href="https://api.spinupwp.app/v1">https://api.spinupwp.app/v1</a>
+
+Email: <a href="mailto:sudo@spinupwp.com">Support</a> 
 
 # Authentication
 
-> To authorize, use this code:
+- HTTP Authentication, scheme: bearer 
 
-```ruby
-require 'kittn'
+<h1 id="spinupwp-sites">Sites</h1>
 
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-```
+Manage sites.
 
-```python
-import kittn
+## addSite
 
-api = kittn.authorize('meowmeowmeow')
-```
+<a id="opIdaddSite"></a>
 
-```shell
-# With shell, you can just pass the correct header with each request
-curl "api_endpoint_here"
-  -H "Authorization: meowmeowmeow"
-```
+`POST /sites`
 
-```javascript
-const kittn = require('kittn');
+*Create a Site*
 
-let api = kittn.authorize('meowmeowmeow');
-```
-
-> Make sure to replace `meowmeowmeow` with your API key.
-
-Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our [developer portal](http://example.com/developers).
-
-Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:
-
-`Authorization: meowmeowmeow`
-
-<aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
-</aside>
-
-# Kittens
-
-## Get All Kittens
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get()
-```
-
-```shell
-curl "http://example.com/api/kittens"
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let kittens = api.kittens.get();
-```
-
-> The above command returns JSON structured like this:
+> Body parameter
 
 ```json
-[
-  {
-    "id": 1,
-    "name": "Fluffums",
-    "breed": "calico",
-    "fluffiness": 6,
-    "cuteness": 7
-  },
-  {
-    "id": 2,
-    "name": "Max",
-    "breed": "unknown",
-    "fluffiness": 5,
-    "cuteness": 10
+{
+  "required": [
+    "server_id",
+    "domain"
+  ],
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "format": "int64",
+      "readOnly": true
+    },
+    "server_id": {
+      "type": "integer",
+      "format": "int64",
+      "example": 1
+    },
+    "domain": {
+      "type": "string",
+      "example": "hellfish.media"
+    }
   }
-]
+}
 ```
 
-This endpoint retrieves all kittens.
+<h3 id="addsite-parameters">Parameters</h3>
 
-### HTTP Request
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|body|body|[Site](#schemasite)|true|Site object that needs to be created.|
 
-`GET http://example.com/api/kittens`
+> Example responses
 
-### Query Parameters
+> 200 Response
 
-Parameter | Default | Description
---------- | ------- | -----------
-include_cats | false | If set to true, the result will also include cats.
-available | true | If set to false, the result will include kittens that have already been adopted.
+```json
+{
+  "required": [
+    "server_id",
+    "domain"
+  ],
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "format": "int64",
+      "readOnly": true
+    },
+    "server_id": {
+      "type": "integer",
+      "format": "int64",
+      "example": 1
+    },
+    "domain": {
+      "type": "string",
+      "example": "hellfish.media"
+    }
+  }
+}
+```
+
+<h3 id="addsite-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|successful operation|[Site](#schemasite)|
+|422|[Unprocessable Entity](https://tools.ietf.org/html/rfc2518#section-10.3)|Invalid input|None|
+
+<h3 id="addsite-responseschema">Response Schema</h3>
 
 <aside class="success">
-Remember — a happy kitten is an authenticated kitten!
+This operation does not require authentication
 </aside>
 
-## Get a Specific Kitten
+## get__sites_{siteId}
 
-```ruby
-require 'kittn'
+`GET /sites/{siteId}`
 
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get(2)
-```
+*Retrieve a Site*
 
-```python
-import kittn
+Returns a single site.
 
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get(2)
-```
+<h3 id="get__sites_{siteid}-parameters">Parameters</h3>
 
-```shell
-curl "http://example.com/api/kittens/2"
-  -H "Authorization: meowmeowmeow"
-```
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|siteId|path|integer(int64)|true|ID of site to return|
 
-```javascript
-const kittn = require('kittn');
+> Example responses
 
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.get(2);
-```
-
-> The above command returns JSON structured like this:
+> 200 Response
 
 ```json
 {
-  "id": 2,
-  "name": "Max",
-  "breed": "unknown",
-  "fluffiness": 5,
-  "cuteness": 10
+  "required": [
+    "server_id",
+    "domain"
+  ],
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "format": "int64",
+      "readOnly": true
+    },
+    "server_id": {
+      "type": "integer",
+      "format": "int64",
+      "example": 1
+    },
+    "domain": {
+      "type": "string",
+      "example": "hellfish.media"
+    }
+  }
 }
 ```
 
-This endpoint retrieves a specific kitten.
+<h3 id="get__sites_{siteid}-responses">Responses</h3>
 
-<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|successful operation|[Site](#schemasite)|
+|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|Invalid ID supplied|None|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Site not found|None|
 
-### HTTP Request
+<h3 id="get__sites_{siteid}-responseschema">Response Schema</h3>
 
-`GET http://example.com/kittens/<ID>`
+<aside class="success">
+This operation does not require authentication
+</aside>
 
-### URL Parameters
+## deleteSite
 
-Parameter | Description
---------- | -----------
-ID | The ID of the kitten to retrieve
+<a id="opIddeleteSite"></a>
 
-## Delete a Specific Kitten
+`DELETE /sites/{siteId}`
 
-```ruby
-require 'kittn'
+*Deletes a Site*
 
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.delete(2)
-```
+<h3 id="deletesite-parameters">Parameters</h3>
 
-```python
-import kittn
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|siteId|path|integer(int64)|true|Site ID to delete|
 
-api = kittn.authorize('meowmeowmeow')
-api.kittens.delete(2)
-```
+> Example responses
 
-```shell
-curl "http://example.com/api/kittens/2"
-  -X DELETE
-  -H "Authorization: meowmeowmeow"
-```
+<h3 id="deletesite-responses">Responses</h3>
 
-```javascript
-const kittn = require('kittn');
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|Invalid ID supplied|None|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Site not found|None|
 
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.delete(2);
-```
+<h3 id="deletesite-responseschema">Response Schema</h3>
 
-> The above command returns JSON structured like this:
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+# Schemas
+
+<h2 id="tocS_Site">Site</h2>
+<!-- backwards compatibility -->
+<a id="schemasite"></a>
+<a id="schema_Site"></a>
+<a id="tocSsite"></a>
+<a id="tocssite"></a>
 
 ```json
 {
-  "id": 2,
-  "deleted" : ":("
+  "required": [
+    "server_id",
+    "domain"
+  ],
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "format": "int64",
+      "readOnly": true
+    },
+    "server_id": {
+      "type": "integer",
+      "format": "int64",
+      "example": 1
+    },
+    "domain": {
+      "type": "string",
+      "example": "hellfish.media"
+    }
+  }
 }
+
 ```
 
-This endpoint deletes a specific kitten.
+### Properties
 
-### HTTP Request
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|id|integer(int64)|false|read-only|none|
+|server_id|integer(int64)|true|none|none|
+|domain|string|true|none|none|
 
-`DELETE http://example.com/kittens/<ID>`
+<h2 id="tocS_ApiResponse">ApiResponse</h2>
+<!-- backwards compatibility -->
+<a id="schemaapiresponse"></a>
+<a id="schema_ApiResponse"></a>
+<a id="tocSapiresponse"></a>
+<a id="tocsapiresponse"></a>
 
-### URL Parameters
+```json
+{
+  "type": "object",
+  "properties": {
+    "event_id": {
+      "type": "integer",
+      "format": "int32"
+    },
+    "data": {
+      "type": "array"
+    }
+  }
+}
 
-Parameter | Description
---------- | -----------
-ID | The ID of the kitten to delete
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|event_id|integer(int32)|false|none|none|
+|data|array|false|none|none|
 

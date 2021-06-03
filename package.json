@@ -4,7 +4,7 @@
   "main": "convert.js",
   "scripts": {
     "convert": "node convert.js",
-    "build": "npm run convet && npx reslate build",
+    "build": "npm run convert && npx reslate build",
     "debug": "npx reslate debug",
     "serve": "npx reslate serve"
   },

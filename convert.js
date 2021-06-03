@@ -1,4 +1,5 @@
 const widdershins = require('widdershins');
+const yaml = require('yaml');
 
 const options = {
   language_tabs: [{ shell: "cURL" }, { php: "PHP" }]
@@ -6,7 +7,7 @@ const options = {
 
 const fs = require('fs');
 const fileData = fs.readFileSync('openapi.yaml', 'utf8');
-const swaggerFile = fileData;
+const swaggerFile = yaml.parse(fileData);
 
 widdershins.convert(swaggerFile, options)
 .then(markdownOutput => {
