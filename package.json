@@ -1,13 +1,15 @@
 {
   "private": true,
   "name": "spinupwp-rest-api-docs",
-  "main": "index.js",
+  "main": "convert.js",
   "scripts": {
-    "build": "npx reslate build",
+    "convert": "node convert.js",
+    "build": "npm run convet && npx reslate build",
     "debug": "npx reslate debug",
     "serve": "npx reslate serve"
   },
   "devDependencies": {
-    "reslate": "^3.0.0-4"
+    "reslate": "^3.0.0-4",
+    "widdershins": "^4.0.1"
   }
 }
