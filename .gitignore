@@ -1,6 +1,7 @@
 node_modules/
 npm-debug.log
 _site/
+index.md
 slate/js/lib/*.min.js
 slate/css/*.css
 .DS_Store
