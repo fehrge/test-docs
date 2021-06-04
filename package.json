@@ -7,7 +7,7 @@
     "debug": "npx reslate debug",
     "serve": "npx reslate serve",
     "convert": "node convert.js",
-    "watch": "nodemon --watch openapi.yaml"
+    "watch": "nodemon --watch openapi.yaml --watch templates -e dot,det"
   },
   "devDependencies": {
     "reslate": "^3.0.0-4",

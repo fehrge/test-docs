@@ -13,8 +13,9 @@ const options = {
             description: 'SpinupWP Documentation',
         },
     ],
-    templateCallback: function(template, callbackType, data) {
-        // callbackType pre, post
+    user_templates: 'templates',
+    templateCallback: function(templateName, stage, data) {
+        // stage pre, post
         return data;
     }
 };
