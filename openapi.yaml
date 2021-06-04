@@ -1,40 +1,39 @@
 openapi: 3.0.1
 info:
-  title: SpinupWP
+  title: SpinupWP REST API
   description: 'SpinupWP REST API documentation.'
   contact:
     email: sudo@spinupwp.com
-  version: 1.0.0
+  version: "1.0"
 servers:
 - url: https://api.spinupwp.app/v1
 tags:
+- name: Servers
+  description: The servers API allows you to view servers.
 - name: Sites
-  description: Manage sites.
+  description: The sites API allows you to create, view, and delete sites.
+- name: Events
+  description: The events API allows you to view events.
 paths:
-  /sites:
-    post:
+  /servers/{id}:
+    get:
       tags:
-      - Sites
-      summary: Create a Site
-      operationId: addSite
-      requestBody:
-        description: Site object that needs to be created.
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Site'
-        required: true
+        - Servers
+      summary: Retrieve a server
+      operationId: getServer
       responses:
         200:
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Site'
-        422:
-          description: Invalid input
-          content: {}
-  /sites/{siteId}:
+          description: Successful
+  /servers:
+    get:
+      tags:
+        - Servers
+      summary: List all servers
+      operationId: getServers
+      responses:
+        200:
+          description: Successful
+  /sites/{id}:
     get:
       tags:
       - Sites
@@ -47,7 +46,6 @@ paths:
         required: true
         schema:
           type: integer
-          format: int64
       responses:
         200:
           description: successful operation
@@ -64,7 +62,7 @@ paths:
     delete:
       tags:
       - Sites
-      summary: Deletes a Site
+      summary: Delete a Site
       operationId: deleteSite
       parameters:
       - name: siteId
@@ -73,7 +71,6 @@ paths:
         required: true
         schema:
           type: integer
-          format: int64
       responses:
         400:
           description: Invalid ID supplied
@@ -81,7 +78,53 @@ paths:
         404:
           description: Site not found
           content: {}
-
+  /sites:
+    post:
+      tags:
+      - Sites
+      summary: Create a Site
+      operationId: addSite
+      requestBody:
+        description: Site object that needs to be created.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Site'
+        required: true
+      responses:
+        200:
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Site'
+        422:
+          description: Invalid input
+          content: {}
+    get:
+      tags:
+      - Sites
+      summary: List all Sites
+      description: List all single site.
+      parameters:
+      - name: server_id
+        in: path
+        description: Filter by Server ID
+        schema:
+          type: integer
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Site'
+        400:
+          description: Invalid ID supplied
+          content: {}
+        404:
+          description: Site not found
+          content: {}
 components:
   schemas:
     Site:
@@ -92,11 +135,9 @@ components:
       properties:
         id:
           type: integer
-          format: int64
           readOnly: true
         server_id:
           type: integer
-          format: int64
           example: 1
         domain:
           type: string
@@ -106,10 +147,13 @@ components:
       properties:
         event_id:
           type: integer
-          format: int32
         data:
           type: array
   securitySchemes:
-    api_key:
+    api_token:
       type: http
       scheme: bearer
+
+security:
+  - api_token: []
+

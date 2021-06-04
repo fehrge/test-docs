@@ -2,7 +2,21 @@ const widdershins = require('widdershins');
 const yaml = require('yaml');
 
 const options = {
-  language_tabs: [{ shell: "cURL" }, { php: "PHP" }]
+    search: false,
+    tocSummary: true,
+    language_tabs: [{ shell: "cURL" }, { php: "PHP" }],
+    codeSamples: true,
+    includes: ['errors.md'],
+    toc_footers: [
+        {
+            url: 'https://spinupwp.com/docs',
+            description: 'SpinupWP Documentation',
+        },
+    ],
+    templateCallback: function(template, callbackType, data) {
+        // callbackType pre, post
+        return data;
+    }
 };
 
 const fs = require('fs');

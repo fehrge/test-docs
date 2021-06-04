@@ -1,11 +1,13 @@
 ---
-title: SpinupWP v1.0.0
+title: SpinupWP REST API v1.0
 language_tabs:
   - shell: cURL
   - php: PHP
-toc_footers: []
-includes: []
-search: true
+toc_footers:
+  - <a href="https://spinupwp.com/docs">SpinupWP Documentation</a>
+includes:
+  - errors.md
+search: false
 highlight_theme: darkula
 headingLevel: 2
 
@@ -13,7 +15,7 @@ headingLevel: 2
 
 <!-- Generator: Widdershins v4.0.1 -->
 
-<h1 id="spinupwp">SpinupWP v1.0.0</h1>
+<h1 id="spinupwp-rest-api">SpinupWP REST API v1.0</h1>
 
 > Scroll down for code samples, example requests and responses. Select a language for code samples from the tabs above or the mobile navigation menu.
 
@@ -29,17 +31,342 @@ Email: <a href="mailto:sudo@spinupwp.com">Support</a>
 
 - HTTP Authentication, scheme: bearer 
 
-<h1 id="spinupwp-sites">Sites</h1>
+<h1 id="spinupwp-rest-api-servers">Servers</h1>
 
-Manage sites.
+The servers API allows you to view servers.
 
-## addSite
+## Retrieve a server
+
+<a id="opIdgetServer"></a>
+
+> Code samples
+
+```shell
+# You can also use wget
+curl -X GET https://api.spinupwp.app/v1/servers/{id} \
+  -H 'Authorization: Bearer {access-token}'
+
+```
+
+```php
+<?php
+
+require 'vendor/autoload.php';
+
+$headers = array(
+    'Authorization' => 'Bearer {access-token}',
+);
+
+$client = new \GuzzleHttp\Client();
+
+// Define array of request body.
+$request_body = array();
+
+try {
+    $response = $client->request('GET','https://api.spinupwp.app/v1/servers/{id}', array(
+        'headers' => $headers,
+        'json' => $request_body,
+       )
+    );
+    print_r($response->getBody()->getContents());
+ }
+ catch (\GuzzleHttp\Exception\BadResponseException $e) {
+    // handle exception or api errors.
+    print_r($e->getMessage());
+ }
+
+ // ...
+
+```
+
+`GET /servers/{id}`
+
+<h3 id="retrieve-a-server-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Successful|None|
+
+<aside class="warning">
+To perform this operation, you must be authenticated by means of one of the following methods:
+api_token
+</aside>
+
+## List all servers
+
+<a id="opIdgetServers"></a>
+
+> Code samples
+
+```shell
+# You can also use wget
+curl -X GET https://api.spinupwp.app/v1/servers \
+  -H 'Authorization: Bearer {access-token}'
+
+```
+
+```php
+<?php
+
+require 'vendor/autoload.php';
+
+$headers = array(
+    'Authorization' => 'Bearer {access-token}',
+);
+
+$client = new \GuzzleHttp\Client();
+
+// Define array of request body.
+$request_body = array();
+
+try {
+    $response = $client->request('GET','https://api.spinupwp.app/v1/servers', array(
+        'headers' => $headers,
+        'json' => $request_body,
+       )
+    );
+    print_r($response->getBody()->getContents());
+ }
+ catch (\GuzzleHttp\Exception\BadResponseException $e) {
+    // handle exception or api errors.
+    print_r($e->getMessage());
+ }
+
+ // ...
+
+```
+
+`GET /servers`
+
+<h3 id="list-all-servers-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Successful|None|
+
+<aside class="warning">
+To perform this operation, you must be authenticated by means of one of the following methods:
+api_token
+</aside>
+
+<h1 id="spinupwp-rest-api-sites">Sites</h1>
+
+The sites API allows you to create, view, and delete sites.
+
+## Retrieve a Site
+
+> Code samples
+
+```shell
+# You can also use wget
+curl -X GET https://api.spinupwp.app/v1/sites/{id} \
+  -H 'Accept: application/json' \
+  -H 'Authorization: Bearer {access-token}'
+
+```
+
+```php
+<?php
+
+require 'vendor/autoload.php';
+
+$headers = array(
+    'Accept' => 'application/json',
+    'Authorization' => 'Bearer {access-token}',
+);
+
+$client = new \GuzzleHttp\Client();
+
+// Define array of request body.
+$request_body = array();
+
+try {
+    $response = $client->request('GET','https://api.spinupwp.app/v1/sites/{id}', array(
+        'headers' => $headers,
+        'json' => $request_body,
+       )
+    );
+    print_r($response->getBody()->getContents());
+ }
+ catch (\GuzzleHttp\Exception\BadResponseException $e) {
+    // handle exception or api errors.
+    print_r($e->getMessage());
+ }
+
+ // ...
+
+```
+
+`GET /sites/{id}`
+
+Returns a single site.
+
+<h3 id="retrieve-a-site-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|siteId|path|integer|true|ID of site to return|
+
+> Example responses
+
+> 200 Response
+
+```json
+{
+  "required": [
+    "server_id",
+    "domain"
+  ],
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "readOnly": true
+    },
+    "server_id": {
+      "type": "integer",
+      "example": 1
+    },
+    "domain": {
+      "type": "string",
+      "example": "hellfish.media"
+    }
+  }
+}
+```
+
+<h3 id="retrieve-a-site-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|successful operation|[Site](#schemasite)|
+|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|Invalid ID supplied|None|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Site not found|None|
+
+<h3 id="retrieve-a-site-responseschema">Response Schema</h3>
+
+<aside class="warning">
+To perform this operation, you must be authenticated by means of one of the following methods:
+api_token
+</aside>
+
+## Delete a Site
+
+<a id="opIddeleteSite"></a>
+
+> Code samples
+
+```shell
+# You can also use wget
+curl -X DELETE https://api.spinupwp.app/v1/sites/{id} \
+  -H 'Authorization: Bearer {access-token}'
+
+```
+
+```php
+<?php
+
+require 'vendor/autoload.php';
+
+$headers = array(
+    'Authorization' => 'Bearer {access-token}',
+);
+
+$client = new \GuzzleHttp\Client();
+
+// Define array of request body.
+$request_body = array();
+
+try {
+    $response = $client->request('DELETE','https://api.spinupwp.app/v1/sites/{id}', array(
+        'headers' => $headers,
+        'json' => $request_body,
+       )
+    );
+    print_r($response->getBody()->getContents());
+ }
+ catch (\GuzzleHttp\Exception\BadResponseException $e) {
+    // handle exception or api errors.
+    print_r($e->getMessage());
+ }
+
+ // ...
+
+```
+
+`DELETE /sites/{id}`
+
+<h3 id="delete-a-site-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|siteId|path|integer|true|Site ID to delete|
+
+> Example responses
+
+<h3 id="delete-a-site-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|Invalid ID supplied|None|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Site not found|None|
+
+<h3 id="delete-a-site-responseschema">Response Schema</h3>
+
+<aside class="warning">
+To perform this operation, you must be authenticated by means of one of the following methods:
+api_token
+</aside>
+
+## Create a Site
 
 <a id="opIdaddSite"></a>
 
-`POST /sites`
+> Code samples
 
-*Create a Site*
+```shell
+# You can also use wget
+curl -X POST https://api.spinupwp.app/v1/sites \
+  -H 'Content-Type: application/json' \
+  -H 'Accept: application/json' \
+  -H 'Authorization: Bearer {access-token}'
+
+```
+
+```php
+<?php
+
+require 'vendor/autoload.php';
+
+$headers = array(
+    'Content-Type' => 'application/json',
+    'Accept' => 'application/json',
+    'Authorization' => 'Bearer {access-token}',
+);
+
+$client = new \GuzzleHttp\Client();
+
+// Define array of request body.
+$request_body = array();
+
+try {
+    $response = $client->request('POST','https://api.spinupwp.app/v1/sites', array(
+        'headers' => $headers,
+        'json' => $request_body,
+       )
+    );
+    print_r($response->getBody()->getContents());
+ }
+ catch (\GuzzleHttp\Exception\BadResponseException $e) {
+    // handle exception or api errors.
+    print_r($e->getMessage());
+ }
+
+ // ...
+
+```
+
+`POST /sites`
 
 > Body parameter
 
@@ -53,12 +380,10 @@ Manage sites.
   "properties": {
     "id": {
       "type": "integer",
-      "format": "int64",
       "readOnly": true
     },
     "server_id": {
       "type": "integer",
-      "format": "int64",
       "example": 1
     },
     "domain": {
@@ -69,7 +394,7 @@ Manage sites.
 }
 ```
 
-<h3 id="addsite-parameters">Parameters</h3>
+<h3 id="create-a-site-parameters">Parameters</h3>
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
@@ -89,12 +414,10 @@ Manage sites.
   "properties": {
     "id": {
       "type": "integer",
-      "format": "int64",
       "readOnly": true
     },
     "server_id": {
       "type": "integer",
-      "format": "int64",
       "example": 1
     },
     "domain": {
@@ -105,32 +428,73 @@ Manage sites.
 }
 ```
 
-<h3 id="addsite-responses">Responses</h3>
+<h3 id="create-a-site-responses">Responses</h3>
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|successful operation|[Site](#schemasite)|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Successful|[Site](#schemasite)|
 |422|[Unprocessable Entity](https://tools.ietf.org/html/rfc2518#section-10.3)|Invalid input|None|
 
-<h3 id="addsite-responseschema">Response Schema</h3>
+<h3 id="create-a-site-responseschema">Response Schema</h3>
 
-<aside class="success">
-This operation does not require authentication
+<aside class="warning">
+To perform this operation, you must be authenticated by means of one of the following methods:
+api_token
 </aside>
 
-## get__sites_{siteId}
+## List all Sites
 
-`GET /sites/{siteId}`
+> Code samples
 
-*Retrieve a Site*
+```shell
+# You can also use wget
+curl -X GET https://api.spinupwp.app/v1/sites \
+  -H 'Accept: application/json' \
+  -H 'Authorization: Bearer {access-token}'
 
-Returns a single site.
+```
 
-<h3 id="get__sites_{siteid}-parameters">Parameters</h3>
+```php
+<?php
+
+require 'vendor/autoload.php';
+
+$headers = array(
+    'Accept' => 'application/json',
+    'Authorization' => 'Bearer {access-token}',
+);
+
+$client = new \GuzzleHttp\Client();
+
+// Define array of request body.
+$request_body = array();
+
+try {
+    $response = $client->request('GET','https://api.spinupwp.app/v1/sites', array(
+        'headers' => $headers,
+        'json' => $request_body,
+       )
+    );
+    print_r($response->getBody()->getContents());
+ }
+ catch (\GuzzleHttp\Exception\BadResponseException $e) {
+    // handle exception or api errors.
+    print_r($e->getMessage());
+ }
+
+ // ...
+
+```
+
+`GET /sites`
+
+List all single site.
+
+<h3 id="list-all-sites-parameters">Parameters</h3>
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
-|siteId|path|integer(int64)|true|ID of site to return|
+|server_id|path|integer|false|Filter by Server ID|
 
 > Example responses
 
@@ -146,12 +510,10 @@ Returns a single site.
   "properties": {
     "id": {
       "type": "integer",
-      "format": "int64",
       "readOnly": true
     },
     "server_id": {
       "type": "integer",
-      "format": "int64",
       "example": 1
     },
     "domain": {
@@ -162,7 +524,7 @@ Returns a single site.
 }
 ```
 
-<h3 id="get__sites_{siteid}-responses">Responses</h3>
+<h3 id="list-all-sites-responses">Responses</h3>
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
@@ -170,39 +532,11 @@ Returns a single site.
 |400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|Invalid ID supplied|None|
 |404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Site not found|None|
 
-<h3 id="get__sites_{siteid}-responseschema">Response Schema</h3>
+<h3 id="list-all-sites-responseschema">Response Schema</h3>
 
-<aside class="success">
-This operation does not require authentication
-</aside>
-
-## deleteSite
-
-<a id="opIddeleteSite"></a>
-
-`DELETE /sites/{siteId}`
-
-*Deletes a Site*
-
-<h3 id="deletesite-parameters">Parameters</h3>
-
-|Name|In|Type|Required|Description|
-|---|---|---|---|---|
-|siteId|path|integer(int64)|true|Site ID to delete|
-
-> Example responses
-
-<h3 id="deletesite-responses">Responses</h3>
-
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|Invalid ID supplied|None|
-|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Site not found|None|
-
-<h3 id="deletesite-responseschema">Response Schema</h3>
-
-<aside class="success">
-This operation does not require authentication
+<aside class="warning">
+To perform this operation, you must be authenticated by means of one of the following methods:
+api_token
 </aside>
 
 # Schemas
@@ -224,12 +558,10 @@ This operation does not require authentication
   "properties": {
     "id": {
       "type": "integer",
-      "format": "int64",
       "readOnly": true
     },
     "server_id": {
       "type": "integer",
-      "format": "int64",
       "example": 1
     },
     "domain": {
@@ -245,8 +577,8 @@ This operation does not require authentication
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|id|integer(int64)|false|read-only|none|
-|server_id|integer(int64)|true|none|none|
+|id|integer|false|read-only|none|
+|server_id|integer|true|none|none|
 |domain|string|true|none|none|
 
 <h2 id="tocS_ApiResponse">ApiResponse</h2>
@@ -261,8 +593,7 @@ This operation does not require authentication
   "type": "object",
   "properties": {
     "event_id": {
-      "type": "integer",
-      "format": "int32"
+      "type": "integer"
     },
     "data": {
       "type": "array"
@@ -276,6 +607,6 @@ This operation does not require authentication
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|event_id|integer(int32)|false|none|none|
+|event_id|integer|false|none|none|
 |data|array|false|none|none|
 

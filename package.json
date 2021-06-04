@@ -3,10 +3,11 @@
   "name": "spinupwp-rest-api-docs",
   "main": "convert.js",
   "scripts": {
-    "convert": "node convert.js",
     "build": "npm run convert && npx reslate build",
     "debug": "npx reslate debug",
-    "serve": "npx reslate serve"
+    "serve": "npx reslate serve",
+    "convert": "node convert.js",
+    "watch": "nodemon --watch openapi.yaml"
   },
   "devDependencies": {
     "reslate": "^3.0.0-4",
