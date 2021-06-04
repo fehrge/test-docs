@@ -17,7 +17,7 @@ headingLevel: 2
 
 <h1 id="spinupwp-rest-api">SpinupWP REST API</h1>
 
-> Please Scroll down for code samples, example requests and responses. Select a language for code samples from the tabs above or the mobile navigation menu.
+> Scroll down for code samples, example requests and responses. Select a language for code samples from the tabs above or the mobile navigation menu.
 
 SpinupWP REST API documentation.
 
@@ -87,11 +87,6 @@ try {
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Successful|None|
 
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-api_token
-</aside>
-
 ## List all servers
 
 <a id="opIdgetServers"></a>
@@ -143,11 +138,6 @@ try {
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Successful|None|
-
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-api_token
-</aside>
 
 <h1 id="spinupwp-rest-api-sites">Sites</h1>
 
@@ -245,11 +235,6 @@ Returns a single site.
 
 <h3 id="retrieve-a-site-responseschema">Response Schema</h3>
 
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-api_token
-</aside>
-
 ## Delete a Site
 
 <a id="opIddeleteSite"></a>
@@ -312,11 +297,6 @@ try {
 |404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Site not found|None|
 
 <h3 id="delete-a-site-responseschema">Response Schema</h3>
-
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-api_token
-</aside>
 
 ## Create a Site
 
@@ -437,11 +417,6 @@ try {
 
 <h3 id="create-a-site-responseschema">Response Schema</h3>
 
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-api_token
-</aside>
-
 ## List all Sites
 
 > Code samples
@@ -533,11 +508,6 @@ List all single site.
 |404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Site not found|None|
 
 <h3 id="list-all-sites-responseschema">Response Schema</h3>
-
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-api_token
-</aside>
 
 # Schemas
 
